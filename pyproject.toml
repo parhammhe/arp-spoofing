@@ -1,0 +1,11 @@
+[project]
+name = "arp-spoofing"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "colorama>=0.4.6",
+    "scapy>=2.6.1",
+    "tqdm>=4.66.5",
+]

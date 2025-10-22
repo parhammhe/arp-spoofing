@@ -38,21 +38,74 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 
 Make sure to specify the correct IP addresses and the network interface.
 
-#### Command:
+#### Command Line Version:
 ```bash
-sudo ./spoofing.py -t <target_ip> -s <spoofed_ip> -i <interface>
+sudo ./spoofer.py -t <target_ip> -s <spoofed_ip> -i <interface>
 ```
 
-#### Example:
+#### Example (Command Line):
 ```bash
-sudo ./spoofing.py -t 192.168.1.130 -s 192.168.1.1 -i eth0
+sudo ./spoofer.py -t 192.168.1.130 -s 192.168.1.1 -i eth0
 ```
 
 - `-t` or `--target`: The victim's IP address.
 - `-s` or `--spoof`: The IP address you want to spoof (e.g., the router).
 - `-i` or `--interface`: The network interface to use (e.g., `eth0`, `wlan0`).
 
+#### GUI Version:
+```bash
+python main.py --gui
+```
+
+The GUI version provides a user-friendly interface with the following features:
+- Automatic network interface detection
+- Network scanning to discover active devices
+- Device name resolution (hostname and vendor identification)
+- Visual selection of target and gateway IPs
+- Start/Stop controls for the spoofing process
+- Status display area
+
+#### Automatic Discovery Options (Command Line):
+
+The command-line version also supports automatic discovery:
+- `-a` or `--auto`: Enable automatic mode (auto-detect interface, scan for targets, and detect gateway)
+- `--auto-interface`: Automatically detect network interface
+- `--auto-target`: Automatically scan for and select target
+- `--auto-gateway`: Automatically detect gateway IP
+- `--scan-only`: Only scan the network and list discovered devices, then exit
+
+#### Examples (Automatic Discovery):
+
+Fully automatic mode:
+```bash
+sudo ./spoofer.py --auto
+```
+
+Scan network only:
+```bash
+sudo ./spoofer.py --scan-only
+```
+
+Automatic interface detection:
+```bash
+sudo ./spoofer.py --auto-interface -t 192.168.1.100 -s 192.168.1.1
+```
+
+Automatic target selection:
+```bash
+sudo ./spoofer.py --auto-target -s 192.168.1.1 -i eth0
+```
+
+Automatic gateway detection:
+```bash
+sudo ./spoofer.py --auto-gateway -t 192.168.1.100 -i eth0
+```
+
 When the program is interrupted (e.g., by pressing `CTRL+C`), the script will automatically restore the ARP tables of the victim and the router to their original state.
+
+#### Troubleshooting Device Detection Issues
+
+If the tool cannot detect devices on your network, please refer to our detailed [TROUBLESHOOTING.md](TROUBLESHOOTING.md) guide for comprehensive solutions to common issues.
 
 #### Setup
 
@@ -72,6 +125,8 @@ When the program is interrupted (e.g., by pressing `CTRL+C`), the script will au
 - **Scapy**: A powerful Python library for packet crafting and network analysis.
 - **argparse**: For command-line argument parsing.
 - **colorama**: For adding colored output to terminal messages.
+- **tqdm**: For progress bars during network scanning.
+- **tkinter**: For the graphical user interface (usually included with Python).
 
 #### Credits
 
